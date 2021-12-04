@@ -54,30 +54,6 @@ function App() {
     setTodos([...todos, mytodo])
   }
   
-  // const [todos, settodos] = useState([
-  //   {
-  //     sno: 1,
-  //     title: "goto market",
-  //     desc: "goto the market and get your job done"
-  //   },
-  //   {
-  //     sno: 2,
-  //     title: "goto marketpalace",
-  //     desc: "goto the market and get your job done suneo"
-  //   },
-  //   {
-  //     sno: 3,
-  //     title: "goto marketghat",
-  //     desc: "goto the market and get your job done dunika"
-  //   },
-  //   {
-  //     sno: 4,
-  //     title: "goto marketgb",
-  //     desc: "goto the market and get your hurika job done"
-  //   }
-  // ]);
-  
-  
   useEffect(() => {
     let c=0;
     todos.map((todo) => {
