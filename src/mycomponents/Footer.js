@@ -10,10 +10,6 @@ export default function Footer() {
     display: "block",
   }
   return (
-    <footer className="bg-dark text-light py-3" style={footerstyle}>
-      <p className="text-center">
-        CopyRight &copy; MyTodo's.com
-      </p>
-    </footer>
+    <div class="footer"></div>
   )
 } 
