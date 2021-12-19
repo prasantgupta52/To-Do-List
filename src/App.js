@@ -23,7 +23,6 @@ import {
 function App() {
   
   const createAccount = (username, password, cpassword) => {
-    console.log("heythere");
     let initialtodo = [];
     let databasename = { username };
     if (password === cpassword) {
@@ -34,6 +33,7 @@ function App() {
           cpassword: cpassword,
         }
         localStorage.setItem(databasename.username, JSON.stringify(userprofile))
+        return true;
       } else {
         alert("your account already Exists try Signing in to your Account")
       }
@@ -107,15 +107,15 @@ function App() {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos])
 
-  var loggedIn = false;
+  const [loggedIn, setLoggedIn] = useState(false);
+  // setLoggedIn(true);
   // const [loggedIn, setLoggedIn] = useState(false);
 
   return (
     <>
       <Router>
         <div className="mycontainer"> 
-        
-          {loggedIn===true ? "<HeaderSigned />":<Header title="justone" />}
+          <Header title="justone" />
 
           <Routes>
             <Route exact path="/SignIn" element={<SignIn />} />
