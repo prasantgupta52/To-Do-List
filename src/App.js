@@ -2,47 +2,26 @@ import './App.css';
 import './app2.css';
 import React, { useState, useEffect } from 'react';
 import Header from "./mycomponents/Header";
-import Footer from "./mycomponents/Footer";
-import Todos from "./mycomponents/Todos";
-import { AddTodo } from './mycomponents/AddTodo';
-import SignInSignUp from './mycomponents/SignInSignUp';
 import SignUp from './mycomponents/SignUp';
 import SignIn from './mycomponents/SignIn';
 import Content from './mycomponents/Content';
-import HeaderSigned from './mycomponents/HeaderSigned';
-import FooterSigned from './mycomponents/FooterSigned';
+import ContentOfUser from './mycomponents/ContentOfUser';
+import About from './mycomponents/About';
+import Contact from './mycomponents/Contact';
+import Footer from "./mycomponents/Footer";
 import {
   HashRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
+import { use } from 'express/lib/router';
 
 
 
 
 function App() {
-  
-  const createAccount = (username, password, cpassword) => {
-    let initialtodo = [];
-    let databasename = { username };
-    if (password === cpassword) {
-      if (localStorage.getItem(databasename.username) === null) {
-        const userprofile = {
-          username: username,
-          password: password,
-          cpassword: cpassword,
-        }
-        localStorage.setItem(databasename.username, JSON.stringify(userprofile))
-        return true;
-      } else {
-        alert("your account already Exists try Signing in to your Account")
-      }
-    } else {
-      alert("password and confirm password does not matches please enter password carefully")
-    }
-  }
-
-
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [userInfo, setUserInfo] = useState({});
 
   let initialtodo = [];
   if (localStorage.getItem("todos") === null) {
@@ -107,19 +86,20 @@ function App() {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos])
 
-  const [loggedIn, setLoggedIn] = useState(false);
   // setLoggedIn(true);
   // const [loggedIn, setLoggedIn] = useState(false);
 
   return (
     <>
       <Router>
-        <div className="mycontainer"> 
-          <Header title="justone" />
-
+        <div className={loggedIn ? "myloggedincontainer":"mycontainer"}> 
+          <Header title="justone" loggedIn={loggedIn} setLoggedIn={setLoggedIn} userInfo={userInfo} setUserInfo={setUserInfo} />
           <Routes>
-            <Route exact path="/SignIn" element={<SignIn />} />
-            <Route exact path="/" element={<SignUp createAccount={createAccount} />} />
+            <Route exact path="/" element={<SignUp loggedIn={ loggedIn} setLoggedIn={setLoggedIn} userInfo={userInfo} setUserInfo={setUserInfo} />} />
+            <Route exact path="/SignIn" element={<SignIn loggedIn={ loggedIn} setLoggedIn={setLoggedIn}/>} />
+            <Route exact path="/Home/:email" element={<ContentOfUser loggedIn={ loggedIn} setLoggedIn={setLoggedIn} userInfo={userInfo} setUserInfo={setUserInfo} />} />
+            <Route exact path="/about" element={<About loggedIn={ loggedIn} setLoggedIn={setLoggedIn} userInfo={userInfo} setUserInfo={setUserInfo} />} />
+            <Route exact path="/Contact" element={<Contact loggedIn={ loggedIn} setLoggedIn={setLoggedIn} userInfo={userInfo} setUserInfo={setUserInfo} />} />
             {/* <Route exact path="/Home" render={() => {
               return (
                 <>
@@ -134,7 +114,6 @@ function App() {
                 }}>
                 </Route>
                 <Route exact path="/about">
-                <Users />
               </Route> */}
           </Routes>
           {loggedIn ? "" : <Content />}

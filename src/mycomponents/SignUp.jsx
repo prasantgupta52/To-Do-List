@@ -1,57 +1,77 @@
 import { use } from 'express/lib/router';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 import Axios from "axios";
 
 export default function SignUp(props) {
+  let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
-
+  
+  React.useEffect(() => {
+    if(localStorage.getItem("userOfTodo") === null) {
+    } else {
+      let user = JSON.parse(localStorage.getItem("userOfTodo") || "[]");
+      props.setLoggedIn(true);
+      props.setUserInfo(user);
+      navigate(`/Home/${user.email}`)
+    }
+  },[navigate])
   // useEffect(() => {
   //   Axios.get("http://localhost:3001/fetch").then((response) => {
   //     console.log(response);
   //   })
   // }, [])
 
-  const update = (id, newpassword) => {
-    Axios.get("http://localhost:3001/update", {
-      id: id,
-      newpassword: newpassword
-    });
+  // const update = (id, newpassword) => {
+  //   Axios.get("http://localhost:3001/update", {
+  //     id: id,
+  //     newpassword: newpassword
+  //   });
+  // }
+  const createaccount = async () => {
+    await Axios.post("http://localhost:3001/insert", {
+      email: username,
+      password: password,
+      cpassword: cpassword
+    })
+      .then(await Axios.get(`http://localhost:3001/fetchaccount/${username}`)
+        .then(async (response) => {
+          let userdetail = response.data[0];
+          await Axios.post(`http://localhost:3001/usertodo/${userdetail._id}`)
+          console.log(userdetail);
+          localStorage.setItem('userOfTodo',JSON.stringify(userdetail));
+          navigate(`/Home/${userdetail.email}`)
+        }));
+    setUsername("");
+    setPassword("");
+    setCpassword("");
   }
 
-  // onclick = {() => update(collection._id)}
+
 
   const create = async (e) => {
     e.preventDefault();
     if (!username || !password || !cpassword) {
       alert("Please Ensure that every Field is filled none of em is Empty");
     } else {
-      let databasename = { username };
       if (password === cpassword) {
-        if (localStorage.getItem(databasename.username) === null) {
-          const userprofile = {
-            username: username,
-            password: password,
-            cpassword: cpassword,
-          }
-          localStorage.setItem(databasename.username, JSON.stringify(userprofile))
-          await Axios.post("http://localhost:3001/insert", {
-            email: username,
-            password: password,
-            cpassword: cpassword
+        await Axios.get(`http://localhost:3001/fetchaccount/${username}`)
+        .then(async (response) => {
+          try {
+            const tempemail = response.data[0];
+            if (tempemail.email === username) {
+              alert("your account already Exists try Signing in to your Account")
+              setUsername("");
+              setPassword("");
+              setCpassword("");
+              navigate('/SignIn');
+            }
+          } catch (err) {
+            await createaccount();
+            }
           })
-          .then(Axios.get(`http://localhost:3001/fetch/${username}`)
-          .then((response) => {
-            let userdetail = response.data[0];
-            console.log(userdetail);
-          }));
-          setUsername("");
-          setPassword("");
-          setCpassword("");
-        } else {
-          alert("your account already Exists try Signing in to your Account")
-        }
       } else {
         alert("password and confirm password does not matches please enter password carefully")
       }

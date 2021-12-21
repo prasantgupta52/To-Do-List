@@ -10,6 +10,13 @@
   grid-template-rows: 1fr 8fr 1fr;
 }
 
+.myloggedincontainer {
+  display: grid;
+  height: 100vh;
+  /* grid-template-columns: 2fr 1fr; */
+  grid-template-rows: 1fr 8fr 1fr;
+}
+
 .header {
   grid-column: 1/3;
 }
