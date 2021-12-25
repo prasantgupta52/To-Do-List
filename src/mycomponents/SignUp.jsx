@@ -4,25 +4,22 @@ import { useNavigate } from 'react-router-dom'
 import Axios from "axios";
 
 export default function SignUp(props) {
+
   let navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
-  
+
   React.useEffect(() => {
-    if(localStorage.getItem("userOfTodo") === null) {
+    if (localStorage.getItem("userOfTodo") === null) {
     } else {
       let user = JSON.parse(localStorage.getItem("userOfTodo") || "[]");
       props.setLoggedIn(true);
       props.setUserInfo(user);
       navigate(`/Home/${user.email}`)
     }
-  },[navigate])
-  // useEffect(() => {
-  //   Axios.get("http://localhost:3001/fetch").then((response) => {
-  //     console.log(response);
-  //   })
-  // }, [])
+  }, [navigate])
 
   // const update = (id, newpassword) => {
   //   Axios.get("http://localhost:3001/update", {
@@ -30,23 +27,31 @@ export default function SignUp(props) {
   //     newpassword: newpassword
   //   });
   // }
+
   const createaccount = async () => {
     await Axios.post("http://localhost:3001/insert", {
       email: username,
       password: password,
       cpassword: cpassword
     })
-      .then(await Axios.get(`http://localhost:3001/fetchaccount/${username}`)
-        .then(async (response) => {
-          let userdetail = response.data[0];
-          await Axios.post(`http://localhost:3001/usertodo/${userdetail._id}`)
-          console.log(userdetail);
-          localStorage.setItem('userOfTodo',JSON.stringify(userdetail));
-          navigate(`/Home/${userdetail.email}`)
-        }));
-    setUsername("");
-    setPassword("");
-    setCpassword("");
+      .then(
+        setTimeout(async () => {
+          await Axios.get(`http://localhost:3001/fetchaccount/${username}`)
+            .then(async (response) => {
+              let userdetail = response.data[0];
+              setTimeout(async () => {
+                await Axios.post(`http://localhost:3001/usertodo/${userdetail._id}`)
+                console.log(userdetail);
+                localStorage.setItem('userOfTodo', JSON.stringify(userdetail));
+                props.setLoggedIn(true);
+                props.setUserInfo(userdetail);
+                setUsername("");
+                setPassword("");
+                setCpassword("");
+                navigate(`/Home/${userdetail.email}`)
+              }, 1000)
+            });
+        }, 1000));
   }
 
 
@@ -58,18 +63,18 @@ export default function SignUp(props) {
     } else {
       if (password === cpassword) {
         await Axios.get(`http://localhost:3001/fetchaccount/${username}`)
-        .then(async (response) => {
-          try {
-            const tempemail = response.data[0];
-            if (tempemail.email === username) {
-              alert("your account already Exists try Signing in to your Account")
-              setUsername("");
-              setPassword("");
-              setCpassword("");
-              navigate('/SignIn');
-            }
-          } catch (err) {
-            await createaccount();
+          .then(async (response) => {
+            try {
+              const tempemail = response.data[0];
+              if (tempemail.email === username) {
+                alert("your account already Exists try Signing in to your Account")
+                setUsername("");
+                setPassword("");
+                setCpassword("");
+                navigate('/SignIn');
+              }
+            } catch (err) {
+              await createaccount();
             }
           })
       } else {

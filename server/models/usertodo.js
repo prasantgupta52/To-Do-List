@@ -1,18 +1,26 @@
-var mongoose  =  require('mongoose');
+const mongoose = require('mongoose');
 
-function todoSchema(userid) {
-    var usertodo = new mongoose.Schema({
-        todo : {
-          type : String, 
-          required : true,
-          default: "this is a simple sample todo"
-        },
-        modifiedOnDate : {
-          type : Date,
-          default: Date.now
-        }
-    });
-    return mongoose.model(userid, usertodo);
+const usertodo = new mongoose.Schema({
+  Title: {
+    type: String,
+    required: true,
+    default: "Sample Todo"
+  },
+  Description: {
+    type: String,
+    required: true,
+    default: "This is a simple sample Todo"
+  },
+  modifiedOnDate: {
+    type: Date,
+    default: Date.now
+  }
+});
+//  mongoose.model(userid, usertodo);
+
+module.exports = function(userid) {
+  const collectionName = `${userid}`;
+  const model =  mongoose.model(collectionName,usertodo);
+  return model;
 }
-
-module.exports = todoSchema;
+// module.exports = todoSchema;

@@ -44,6 +44,11 @@
   float: right;
 }
 
+
+.refreshbtn {
+  margin-left: 20px;
+}
+
 .foot {
   position: absolute;
   top: 90vh;

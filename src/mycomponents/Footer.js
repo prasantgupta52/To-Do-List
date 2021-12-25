@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Footer() {
+export default function Footer(props) {
   let footerstyle = {
     position: "relative",
     // top: "10vh",
@@ -10,6 +10,6 @@ export default function Footer() {
     display: "block",
   }
   return (
-    <div class="footer"></div>
+    <div class={props.loggedIn?"footerlogged":"footer"}>hiiiiiiiiiii....!</div>
   )
 } 

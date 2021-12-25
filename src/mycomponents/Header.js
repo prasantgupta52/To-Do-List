@@ -1,17 +1,24 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header(props) {
+  let navigate = useNavigate();
 
-  // if(localStorage.getItem("userOfTodo") === null) {
-  // } else {
-  //   props.setLoggedIn(true);
-  // }
-  // let loggedIn = false;
+  const logOut = () => {
+    if(window.confirm("are u sure u want to log out of your account")){
+      props.setLoggedIn(false);
+      props.setUserInfo({});
+      localStorage.removeItem("userOfTodo");
+      setTimeout(() => {
+        navigate('/SignIn');
+      },1000)
+    }
+  }
+
   return (
     <>
-      <div className="header">
+      <div className={props.loggedIn?"headerlogged":"header"}>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
             <Link className="navbar-brand" to={props.loggedIn?`/Home/${props.userInfo.email}}`:"/"}>To-Do-List</Link>
@@ -39,10 +46,10 @@ export default function Header(props) {
                           Dropdown
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <li><Link className="dropdown-item" to="#">Action</Link></li>
-                          <li><Link className="dropdown-item" to="#">Another action</Link></li>
+                          <li><Link className="dropdown-item" to="#" onClick={() => {logOut()}}>Log-Out</Link></li>
+                          <li><Link className="dropdown-item" to="#">Help</Link></li>
                           <li><hr className="dropdown-divider" /></li>
-                          <li><Link className="dropdown-item" to="#">Something else here</Link></li>
+                          <li><Link className="dropdown-item" to="#">Delete my Account</Link></li>
                         </ul>
                       </li>
                     </>
