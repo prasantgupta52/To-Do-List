@@ -40,7 +40,7 @@ export default function ContentOfUser(props) {
   }
 
   return (
-    <div className="contentOfUser">
+    <div className="contentOfUser bggrey">
       <AddTodo refresh={refresh} />
       <Todos todos={todos} refresh={refresh} />
     </div>

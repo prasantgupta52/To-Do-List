@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const cors = require("cors");
 // importing user model schema from user.js
 const userModel = require("./models/user")
+const feedbackModel = require("./models/feedback")
 const userTodo = require("./models/usertodo")
 
 const app = express();
@@ -51,8 +52,26 @@ app.get('/fetchaccount/:email', async (req,res)=>{
   }
 })
 
-app.post('/usertodo/:userid', async (req,res)=>{
+app.delete('/deleteaccount/:userid', async (req,res)=>{
+  
+  const userid = req.params.userid;
+  try{
+    await userModel.findByIdAndDelete(userid, (error, data) => {
+      if (error) {
+          console.log('error in deleting!');
+          throw error;
+        } else {
+          console.log('todo has been deleted', data);
+          res.status(204).json(data);
+      }
+    }).clone();
+  } catch (err) {
+    console.log("prblm in dlt "+err);
+  }
+})
 
+app.post('/usertodo/:userid', async (req,res)=>{
+  
   const userid = req.params.userid;
 
   var userTodoSchema = userTodo(userid);
@@ -96,7 +115,7 @@ app.delete('/deletetodo/:userid/:todoid', async (req,res)=>{
       if (error) {
           console.log('error in deleting!');
           throw error;
-      } else {
+        } else {
           console.log('todo has been deleted', data);
           res.status(204).json(data);
       }
@@ -129,7 +148,7 @@ app.get('/fetchtodos/:userid', async (req,res)=>{
   
   const userid = req.params.userid;
   var userTodoSchema = userTodo(userid);
-
+  
   try {
     await userTodoSchema.find({},(err,result) => {
       if (err) {
@@ -140,6 +159,25 @@ app.get('/fetchtodos/:userid', async (req,res)=>{
     }).clone();
   } catch (err) {
     console.log( "error in usermodel.find"+err);
+  }
+})
+
+app.post('/feedback', async (req,res)=>{
+
+  const name = req.body.name;
+  const email = req.body.email;
+  const message = req.body.message;
+  
+  const feedback = new feedbackModel({
+    name: name,
+    email: email,
+    message: message
+  });
+  try {
+    await feedback.save();
+    res.send("feedback sended into database ")
+  } catch (err) {
+    console.log("error found error details: "+err);
   }
 })
 

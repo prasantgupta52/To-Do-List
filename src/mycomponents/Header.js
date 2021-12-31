@@ -1,6 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { Link, useNavigate } from "react-router-dom";
+import Axios from 'axios';
 
 export default function Header(props) {
   let navigate = useNavigate();
@@ -12,7 +13,22 @@ export default function Header(props) {
       localStorage.removeItem("userOfTodo");
       setTimeout(() => {
         navigate('/SignIn');
-      },1000)
+      },100)
+    }
+  }
+
+  const deleteAccount = () => {
+    const user = JSON.parse(localStorage.getItem("userOfTodo"));
+    const userid = user._id;
+    
+    if(window.confirm("are u sure u want to delete your account this will delete all data related to your account")){
+      Axios.delete(`http://localhost:3001/deleteaccount/${userid}`);
+      props.setLoggedIn(false);
+      props.setUserInfo({});
+      localStorage.removeItem("userOfTodo");
+      setTimeout(() => {
+        navigate('/');
+      },100)
     }
   }
 
@@ -42,14 +58,14 @@ export default function Header(props) {
                         <Link className="nav-link" to="/Contact">Contact</Link>
                       </li>
                       <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Dropdown
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <li><Link className="dropdown-item" to="#" onClick={() => {logOut()}}>Log-Out</Link></li>
-                          <li><Link className="dropdown-item" to="#">Help</Link></li>
+                          <li><Link className="dropdown-item" to="" onClick={() => {logOut()}}>Log-Out</Link></li>
+                          <li><Link className="dropdown-item" to="/Help">Help</Link></li>
                           <li><hr className="dropdown-divider" /></li>
-                          <li><Link className="dropdown-item" to="#">Delete my Account</Link></li>
+                          <li><Link className="dropdown-item" to="" onClick={() => {deleteAccount()}}>Delete my Account</Link></li>
                         </ul>
                       </li>
                     </>

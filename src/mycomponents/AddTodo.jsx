@@ -25,7 +25,7 @@ export const AddTodo = (props) => {
   return (
     <div className="container my-3">
       <h3 className="text-center">Add A Todo</h3>
-      <div className="addtodobox">
+      <div className="add addtodobox">
         <form onSubmit={addtodos}>
           <div className="mb-3">
             <label htmlFor="title" className="form-label" >Title</label>
