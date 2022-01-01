@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Axios from "axios";
+import bg from '../img/bgimage.jpg'
 import {serverurl as url1} from '../url';
 
 export default function SignIn(props) {
@@ -50,7 +51,7 @@ export default function SignIn(props) {
   return (
     <>
       <div className="signup">
-        <div className="signupimg"></div>
+        <img src={bg} alt="background" className="signupimg" />
         <div className="mar"></div>
         <div className="mar"></div>
         <div className="big-text">

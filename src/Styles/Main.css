@@ -41,10 +41,11 @@
 .signupimg {
   position: absolute;
   z-index: -1;
-  background: image(../img/bgimg.jpg);
+  /* background: url("https://drive.google.com/file/d/1R0DJRQsf5GT9FlfZgsYq00iB4Bsb46EB/view?usp=sharing"); */
   background-size: cover;
   opacity: 40%;
   height: 100%;
+  /* overflow: hidden; */
   width: 100%;
 }
 

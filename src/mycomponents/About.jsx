@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../Styles/About.css'
+import bg from '../img/bgimage.jpg'
 
 export default function About(props) {
 
@@ -18,7 +19,7 @@ export default function About(props) {
   return (
     <>
       <div className="signup">
-        <div className="signupimg"></div>
+        <img src={bg} alt="background" className="signupimg" />
         <div className="mar"></div>
         <div className="big-text contact">
           <tt>About</tt>
@@ -41,7 +42,7 @@ export default function About(props) {
               <br />
             </h5>
             <h4>
-              If You Like My Application Plz consider giving a Star to My Repository <a href="">Here</a> :-)
+              If You Like My Application Plz consider giving a Star to My Repository <a href="https://github.com/prasantgupta52/To-Do-List">Here</a> :-)
               And Follow Me
               <br />
               <br />
