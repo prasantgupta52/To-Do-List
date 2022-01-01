@@ -1,6 +1,6 @@
-// import React from 'react'
 import React, { useState } from 'react';
 import Axios from 'axios'
+import {serverurl as url1} from '../url';
 
 
 export const AddTodo = (props) => {
@@ -13,7 +13,7 @@ export const AddTodo = (props) => {
       alert("Title or Description cannot be empty");
     } else {
       const userdetail = JSON.parse(localStorage.getItem("userOfTodo"));
-      await Axios.post(`http://localhost:3001/addtodo/${userdetail._id}`, {
+      await Axios.post(`${url1}/addtodo/${userdetail._id}`, {
         Title: title,
         Description: desc
       }).then(props.refresh)

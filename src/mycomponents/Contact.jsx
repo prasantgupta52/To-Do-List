@@ -1,7 +1,20 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import Axios from 'axios';
+import {serverurl as url1} from '../url';
 
-export default function Contact() {
+export default function Contact(props) {
+
+  let navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (localStorage.getItem("userOfTodo") === null) {
+    } else {
+      let user = JSON.parse(localStorage.getItem("userOfTodo") || "[]");
+      props.setLoggedIn(true);
+      props.setUserInfo(user);
+    }
+  }, [navigate])
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,7 +25,7 @@ export default function Contact() {
     if (!name || !email || !message) {
       alert("Please Ensure that every Field is filled none of em is Empty");
     } else {
-      await Axios.post("http://localhost:3001/feedback", {
+      await Axios.post(`${url1}/feedback`, {
         name: name,
         email: email,
         message: message
@@ -27,9 +40,9 @@ export default function Contact() {
 
   return (
     <>
-    <div className="signup">
-    <div className="signupimg"></div>
-    <div className="mar"></div>
+      <div className="signup">
+        <div className="signupimg"></div>
+        <div className="mar"></div>
         <div className="big-text contact">
           <tt>Contact Us</tt>
         </div>
@@ -61,7 +74,7 @@ export default function Contact() {
           </form>
         </div>
         <div className="mar3"></div>
-    </div>
+      </div>
     </>
   )
 }

@@ -1,7 +1,7 @@
-import { use } from 'express/lib/router';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import Axios from "axios";
+import {serverurl as url1} from '../url';
 
 export default function SignUp(props) {
 
@@ -21,26 +21,19 @@ export default function SignUp(props) {
     }
   }, [navigate])
 
-  // const update = (id, newpassword) => {
-  //   Axios.get("http://localhost:3001/update", {
-  //     id: id,
-  //     newpassword: newpassword
-  //   });
-  // }
-
   const createaccount = async () => {
-    await Axios.post("http://localhost:3001/insert", {
+    await Axios.post(`${url1}/insert`, {
       email: username,
       password: password,
       cpassword: cpassword
     })
       .then(
         setTimeout(async () => {
-          await Axios.get(`http://localhost:3001/fetchaccount/${username}`)
+          await Axios.get(`${url1}/fetchaccount/${username}`)
             .then(async (response) => {
               let userdetail = response.data[0];
               setTimeout(async () => {
-                await Axios.post(`http://localhost:3001/usertodo/${userdetail._id}`)
+                await Axios.post(`${url1}/usertodo/${userdetail._id}`)
                 console.log(userdetail);
                 localStorage.setItem('userOfTodo', JSON.stringify(userdetail));
                 props.setLoggedIn(true);
@@ -62,7 +55,7 @@ export default function SignUp(props) {
       alert("Please Ensure that every Field is filled none of em is Empty");
     } else {
       if (password === cpassword) {
-        await Axios.get(`http://localhost:3001/fetchaccount/${username}`)
+        await Axios.get(`${url1}/fetchaccount/${username}`)
           .then(async (response) => {
             try {
               const tempemail = response.data[0];

@@ -1,6 +1,7 @@
 import Axios from 'axios';
-import React, { useState } from 'react'
+import React from 'react'
 import TodoItem from './TodoItem'
+import {serverurl as url1} from '../url';
 
 export default function Todos(props) {
 
@@ -9,7 +10,7 @@ export default function Todos(props) {
 
   const deletetodo = async (todo, sno) => {
     if (window.confirm(`This todo will be deleted \r\n\r\nSerial No.${sno}\r\nTitle: ${todo.Title}\r\nDescription: ${todo.Description}`)) {
-      await Axios.delete(`http://localhost:3001/deletetodo/${userdetail._id}/${todo._id}`);
+      await Axios.delete(`${url1}/deletetodo/${userdetail._id}/${todo._id}`);
       props.refresh();
     }
   }
@@ -17,7 +18,7 @@ export default function Todos(props) {
   const edittodo = async (todo) => {
     let Title = prompt("enter new title");
     let Desc = prompt("enter new description");
-    await Axios.put(`http://localhost:3001/updatetodo/${userdetail._id}/${todo._id}`, {
+    await Axios.put(`${url1}/updatetodo/${userdetail._id}/${todo._id}`, {
       _id: todo.id,
       Title: Title,
       Description: Desc
@@ -38,7 +39,12 @@ export default function Todos(props) {
           </button>
         </h3>
         {/* <a className="btn btn-outline-primary flo" onClick={props.refresh} >Refresh Todos</a> */}
-        {props.todos.length === 0 ? "No todos to display" :
+        {props.todos.length === 0 ? (
+          <div className="card-body card2 card">
+
+            <h5 className="card-title">No Todo's To Display Now Please Add Todo's To Your List</h5>
+          </div>
+        ) :
           props.todos.map((todo) => {
             let first;
             if (sno % 3 === 1) {

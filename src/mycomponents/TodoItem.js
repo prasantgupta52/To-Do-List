@@ -1,8 +1,9 @@
 import React from 'react'
 
 export default function TodoItem(props) {
+
   return (
-    <div className={props.first === true ? "firsttodoofrow card" : "card"} styles="width: 18rem;">
+    <div className={props.first === true ? "firsttodoofrow card1 card" : "card card1"} styles="width: 18rem;">
       {/* <img src="https://picsum.photos/200/100" className="card-img-top" alt="..."/> */}
       <div className="card-body">
         <h5 className="card-title">{props.sno}. {props.todo.Title}</h5>

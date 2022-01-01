@@ -1,14 +1,17 @@
-import { use } from 'express/lib/router';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Axios from "axios";
+import {serverurl as url1} from '../url';
 
 export default function SignIn(props) {
+
   let navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   React.useEffect(() => {
+
     if (localStorage.getItem("userOfTodo") === null) {
     } else {
       let user = JSON.parse(localStorage.getItem("userOfTodo") || "[]");
@@ -19,12 +22,12 @@ export default function SignIn(props) {
   }, [navigate])
 
   const logIn = async () => {
-    
-    await Axios.get(`http://localhost:3001/fetchaccount/${username}`)
+
+    await Axios.get(`${url1}/fetchaccount/${username}`)
       .then(async (response) => {
         try {
           const tempemail = response.data[0];
-          console.log("dt"+tempemail);
+          console.log("dt" + tempemail);
           if (tempemail.email === username) {
             if (tempemail.password === password) {
               localStorage.setItem("userOfTodo", JSON.stringify(tempemail));

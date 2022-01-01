@@ -2,42 +2,45 @@ import React from 'react'
 import propTypes from 'prop-types'
 import { Link, useNavigate } from "react-router-dom";
 import Axios from 'axios';
+import {serverurl as url1} from '../url';
 
 export default function Header(props) {
+
   let navigate = useNavigate();
 
   const logOut = () => {
-    if(window.confirm("are u sure u want to log out of your account")){
+    if (window.confirm("are u sure u want to log out of your account")) {
       props.setLoggedIn(false);
       props.setUserInfo({});
       localStorage.removeItem("userOfTodo");
       setTimeout(() => {
         navigate('/SignIn');
-      },100)
+      }, 100)
     }
   }
 
   const deleteAccount = () => {
+
     const user = JSON.parse(localStorage.getItem("userOfTodo"));
     const userid = user._id;
-    
-    if(window.confirm("are u sure u want to delete your account this will delete all data related to your account")){
-      Axios.delete(`http://localhost:3001/deleteaccount/${userid}`);
+
+    if (window.confirm("are u sure u want to delete your account this will delete all data related to your account")) {
+      Axios.delete(`${url1}/deleteaccount/${userid}`);
       props.setLoggedIn(false);
       props.setUserInfo({});
       localStorage.removeItem("userOfTodo");
       setTimeout(() => {
         navigate('/');
-      },100)
+      }, 100)
     }
   }
 
   return (
     <>
-      <div className={props.loggedIn?"headerlogged":"header"}>
+      <div className={props.loggedIn ? "headerlogged" : "header"}>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
-            <Link className="navbar-brand" to={props.loggedIn?`/Home/${props.userInfo.email}}`:"/"}>To-Do-List</Link>
+            <Link className="navbar-brand" to={props.loggedIn ? `/Home/${props.userInfo.email}}` : "/"}>To-Do-List</Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
               aria-label="Toggle navigation">
@@ -62,10 +65,10 @@ export default function Header(props) {
                           Dropdown
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <li><Link className="dropdown-item" to="" onClick={() => {logOut()}}>Log-Out</Link></li>
+                          <li><Link className="dropdown-item" to="" onClick={() => { logOut() }}>Log-Out</Link></li>
                           <li><Link className="dropdown-item" to="/Help">Help</Link></li>
                           <li><hr className="dropdown-divider" /></li>
-                          <li><Link className="dropdown-item" to="" onClick={() => {deleteAccount()}}>Delete my Account</Link></li>
+                          <li><Link className="dropdown-item" to="" onClick={() => { deleteAccount() }}>Delete my Account</Link></li>
                         </ul>
                       </li>
                     </>

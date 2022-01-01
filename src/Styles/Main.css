@@ -128,12 +128,12 @@
 
 .footer {
   grid-column: 1/3;
-  background-color: black;
+  background-color: #212529;
 }
 
 .footerlogged {
   grid-column: 1/2;
-  background-color: black;
+  background-color: #212529;
 }
 
 .footp {
@@ -185,4 +185,12 @@
   margin: 10px;
   align-self: center;
   /* vertical-align: middle; */
+}
+
+.card2 {
+  border-color: orange;
+  border-width: 3px;
+  margin: 8px;
+  border-radius: 20px;
+  display: flex;
 }

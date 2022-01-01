@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../Styles/About.css'
 
-export default function About(props) {
+export default function Help(props) {
 
   let navigate = useNavigate();
 
@@ -21,25 +21,19 @@ export default function About(props) {
         <div className="signupimg"></div>
         <div className="mar"></div>
         <div className="big-text contact">
-          <tt>About</tt>
+          <tt>Help</tt>
         </div>
         <div className="mar"></div>
         <div className="mar2"></div>
         <div className="form container">
           <div className='text-center'>
             <h5>
-              This is A simple To-Do-List Application in wich you can add your todos on the go ..!
-              <br />
-              This app is made using the <a href="https://wikitia.com/index.php?title=MERN_(solution_stack)&mobileaction=toggle_view_desktop">MERN</a> stack technology<br />
-              It uses <a href="https://reactjs.org/">React.js</a> as the Frontend <br />And <a href="https://expressjs.com/">Express.js</a> and <a href="https://nodejs.org/en/">Node.js</a> as beckend
-              <br />Uses <a href="https://www.mongodb.com/">MongoDB</a> for data management
-              <br />
-              It also Uses <a href="https://getbootstrap.com/">Bootstrap</a> for Design all the Icons Used are Taken From <a href="https://icons.getbootstrap.com/">BootStrap Icons</a>
-              <br />
-              And Many more modules to know more check my Repository
-              <br />
-              <br />
+              Sorry for the In-convinience caused but some of our feature's does not work with the current version of the website we are working on it and it will be available as soon as possible
+              <br /><br />Feature's that does not work <br />1. Search Button <br />2. Setting Up Alarm/Reminder For Todo<br />3. Application not totally compatible with Mobile Devices
+              <br /><br />
+              If sometime todo's does not get automatically updated <br />try clicking the refresh button beside Todo's List
             </h5>
+            <br />
             <h4>
               If You Like My Application Plz consider giving a Star to My Repository <a href="">Here</a> :-)
               And Follow Me

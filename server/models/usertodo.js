@@ -18,9 +18,9 @@ const usertodo = new mongoose.Schema({
 });
 //  mongoose.model(userid, usertodo);
 
-module.exports = function(userid) {
+module.exports = function (userid) {
   const collectionName = `${userid}`;
-  const model =  mongoose.model(collectionName,usertodo);
+  const model = mongoose.model(collectionName, usertodo);
   return model;
 }
 // module.exports = todoSchema;
