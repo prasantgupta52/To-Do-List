@@ -41,7 +41,7 @@
 .signupimg {
   position: absolute;
   z-index: -1;
-  background: url(../img/bgimage.jpg);
+  background: image(../img/bgimg.jpg);
   background-size: cover;
   opacity: 40%;
   height: 100%;
