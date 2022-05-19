@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/To-Do-List/static/css/main.c1a1d876.chunk.css",
+    "main.js": "/To-Do-List/static/js/main.045d7764.chunk.js",
+    "main.js.map": "/To-Do-List/static/js/main.045d7764.chunk.js.map",
+    "runtime-main.js": "/To-Do-List/static/js/runtime-main.13f2ec63.js",
+    "runtime-main.js.map": "/To-Do-List/static/js/runtime-main.13f2ec63.js.map",
+    "static/js/2.19fa7ea8.chunk.js": "/To-Do-List/static/js/2.19fa7ea8.chunk.js",
+    "static/js/2.19fa7ea8.chunk.js.map": "/To-Do-List/static/js/2.19fa7ea8.chunk.js.map",
+    "static/js/3.aaf6ed9d.chunk.js": "/To-Do-List/static/js/3.aaf6ed9d.chunk.js",
+    "static/js/3.aaf6ed9d.chunk.js.map": "/To-Do-List/static/js/3.aaf6ed9d.chunk.js.map",
+    "index.html": "/To-Do-List/index.html",
+    "static/css/main.c1a1d876.chunk.css.map": "/To-Do-List/static/css/main.c1a1d876.chunk.css.map",
+    "static/js/2.19fa7ea8.chunk.js.LICENSE.txt": "/To-Do-List/static/js/2.19fa7ea8.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/To-Do-List/static/media/bgimage.842f4ff4.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.13f2ec63.js",
+    "static/js/2.19fa7ea8.chunk.js",
+    "static/css/main.c1a1d876.chunk.css",
+    "static/js/main.045d7764.chunk.js"
+  ]
+}
