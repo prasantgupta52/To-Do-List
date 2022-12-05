@@ -2,7 +2,6 @@ const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors");
 require("dotenv").config();
-import {serverurl as url1} from '../url';
 // importing user model schema from user.js
 const userModel = require("./models/user")
 const feedbackModel = require("./models/feedback")
@@ -185,5 +184,5 @@ app.post('/feedback', async (req, res) => {
 
 // database server running on port 3001
 app.listen(process.env.PORT || 3001, () => {
-  console.log(`server running on port ${url1} ..!`);
+  console.log(`server running perfectly..!`);
 })
